@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:pankhurisearchapp/MyHome.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,11 +9,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-        home: Scaffold(
+        home:ListSearch()/*Scaffold(
             body: Center(
                 child: ListSearch()
             )
-        )
+        )*/
     );
   }
 }
@@ -25,25 +26,17 @@ class ListSearchState extends State<ListSearch> {
 
   TextEditingController _textController = TextEditingController();
 
-  static List<Map<String, dynamic>> mainDataList = [
-  {"id":"Live Course- How to learn the art of mehendi with..."},
-    {"id":"bmb"},
-   /* "Banana",
-    "Blackberry",
-    "Coconut",
-    "Date",
-    "Fig", 
-    "Gooseberry",
-    "Grapes",
-    "Lemon",
-    "Litchi",
-    "Mango",
-    "Orange",
-    "Papaya",
-    "Peach",
-    "Pineapple",
-    "Pomegranate",
-    "Starfruit"*/
+  static List<Map<String,dynamic>> mainDataList = [
+    {"course":"Live Course- How to learn the art of mehendi with...","name":"Sonal Bham","date":"18-19 Sep","time":"1:30","price":"1299"},
+    {"course":"Tips and Tricks of basic tailoring for your DIY Fashion","name":"Amit Tiwari","date":"21-22 Oct","time":"1:30","price":"1299"},
+    {"course":"Live Course-Master the iconic eyeliner looks","name":"Kalpana Chawla","date":"27-30 July","time":"1:30","price":"1299"},
+    {"course":"Live Course- How to learn the art of mehendi with...","name":"Sonal Bham","date":"18-19 sept","time":"1:30","price":"1299"},
+    {"course":"Tips and Tricks of basic tailoring for your DIY Fashion","name":"Amit Tiwari","date":"18-19 sept","time":"1:30","price":"1299"},
+    {"course":"Live Course-Master the iconic eyeliner looks","name":"Kalpana Chawla","date":"18-19 sept","time":"1:30","price":"1299"},
+    {"course":"Live Course- How to learn the art of mehendi with...","name":"Sonal Bham","date":"18-19 sept","time":"1:30","price":"1299"},
+    {"course":"Tips and Tricks of basic tailoring for your DIY Fashion","name":"Amit Tiwari","date":"18-19 sept","time":"1:30","price":"1299"},
+    {"course":"Live Course-Master the iconic eyeliner looks","name":"Kalpana Chawla","date":"18-19 sept","time":"1:30","price":"1299"},
+
   ];
 
   // Copy Main List into New List.
@@ -51,11 +44,20 @@ class ListSearchState extends State<ListSearch> {
 
   onItemChanged(String value) {
     setState(() {
-      /*newDataList = mainDataList
+     /* newDataList = mainDataList
           .where((string) => string.toLowerCase().contains(value.toLowerCase()))
           .toList();*/
-      final newDataList = mainDataList.firstWhere((e) => e['id'] == value);
-      print(newDataList['id']);
+
+      /*final newDataList = mainDataList.firstWhere((e) => e['id'] == value);
+      print(newDataList['id']);*/
+      newDataList.clear();
+      for (var map in mainDataList) {
+        if (map.containsKey("course")) {
+          if (map["course"].toString().toLowerCase().contains(value)) {
+            newDataList .add(map);
+          }
+        }
+      }
     });
   }
 
@@ -103,7 +105,26 @@ class ListSearchState extends State<ListSearch> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: ListTile(
-                    title: Text(data["id"]),
+                    title: Container(
+                      height:MediaQuery.of(context).size.height*0.16,
+                      child: Row(
+                        children: [
+                          Container(
+                            width:MediaQuery.of(context).size.width*0.3,
+                            child: Image.asset('assets/mehendi.png'),
+                          ),
+                          Container(
+                              //height:MediaQuery.of(context).size.height*0.16,
+                              child: Column(
+                                children: [
+                                  Flexible(child: Text(data['course'])),
+                                  Text(data['date']),
+                                  Text(data['time'])
+                                ],
+                              )),
+                        ],
+                      ),
+                    ),
                     onTap: ()=> print(data),),
                 );
               }).toList(),
