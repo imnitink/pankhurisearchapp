@@ -32,7 +32,7 @@ class ListSearchState extends State<ListSearch> {
     "Blackberry",
     "Coconut",
     "Date",
-    "Fig",
+    "Fig", 
     "Gooseberry",
     "Grapes",
     "Lemon",
